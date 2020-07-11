@@ -27,7 +27,7 @@ public class UserService {
     public CommonResult<User> login(User user){
         int login = userMapper.login(user);
         if (login>0){
-            return new CommonResult<>(CommonCode.SUCCESS,user);
+            return this.getUserByUserName(user.getUsername());
         }else {
             return new CommonResult<>(UserCode.USERNAME_OR_PASSWORD_ERROR,null);
         }

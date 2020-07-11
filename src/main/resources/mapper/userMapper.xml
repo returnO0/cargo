@@ -5,7 +5,7 @@
         select count(username) from user where username=#{username} and password=#{password}
     </select>
     <insert id="saveUser" parameterType="com.hzq.cargo.entities.User">
-        insert into user value (#{username},#{password})
+        insert into user value (#{username},#{password},#{name})
     </insert>
     
     <select id="selectByUserName" parameterType="string" resultType="int">
