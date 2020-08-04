@@ -13,13 +13,19 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @ToString
-public class CommonResult<T>{
+public class ResponseResult<T>{
     boolean success;
     int code;
     String message;
     private T data;
 
-    public CommonResult(ResultCode status, T data) {
+    public ResponseResult(ResultCode status) {
+        this.success = status.success();
+        this.code=status.code();
+        this.message=status.message();
+    }
+
+    public ResponseResult(ResultCode status, T data) {
         this.success = status.success();
         this.code=status.code();
         this.message=status.message();

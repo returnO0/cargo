@@ -5,6 +5,7 @@ package com.hzq.cargo.util;
  * @description
  * @date 2020-07-10 09:19
  */
+
 public interface ResultCode {
     //是否成功
     boolean success();

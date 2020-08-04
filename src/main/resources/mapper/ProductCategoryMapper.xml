@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzq.cargo.dao.ProductCategoryMapper">
+    <select id="getProductCategoryListByParentId" resultType="com.hzq.cargo.entities.ProductCategory" parameterType="java.lang.Integer">
+        select * from category <if test="_parameter!=null">where parentId=#{parentId}</if>
+    </select>
+
+    <insert id="insertProductCategory" parameterType="com.hzq.cargo.entities.ProductCategory">
+        <selectKey resultType="long" order="AFTER" keyProperty="id">
+            select last_insert_id();
+        </selectKey>
+        insert into category (parentId, categoryName) value (#{parentId},#{categoryName})
+    </insert>
+
+    <update id="updateProductCategory" parameterType="com.hzq.cargo.entities.ProductCategory">
+        update category
+          <set>
+            <if test='parentId !=null and parentId != "" '>
+              parentId= #{parentId},
+            </if>
+            <if test='categoryName!=null and categoryName!= "" '>
+              categoryName= #{categoryName},
+            </if>
+          </set> where id=#{id}
+    </update>
+
+    <delete id="deleteProductCategoryById" parameterType="int">
+        delete from category where id=#{id}
+    </delete>
+
+    <select id="productExistByName" parameterType="string" resultType="int">
+        select count(1) from category where categoryName=#{categoryName}
+    </select>
+</mapper>

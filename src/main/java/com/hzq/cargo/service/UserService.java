@@ -2,11 +2,12 @@ package com.hzq.cargo.service;
 
 import com.hzq.cargo.dao.UserMapper;
 import com.hzq.cargo.entities.User;
-import com.hzq.cargo.util.CommonCode;
-import com.hzq.cargo.util.CommonResult;
+import com.hzq.cargo.exception.ExceptionCast;
+import com.hzq.cargo.util.SqlCode;
 import com.hzq.cargo.util.UserCode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * @author zhiqiang.hu01@hand-china.com
@@ -16,22 +17,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    @Autowired
+    @Resource
     UserMapper userMapper;
 
     /**
      * 用户登录
      * @param user 用户对象
-     * @return 登录结果和数据
      */
-    public CommonResult<User> login(User user){
+    public User login(User user){
         int login = userMapper.login(user);
-        if (login>0){
-            return this.getUserByUserName(user.getUsername());
-        }else {
-            return new CommonResult<>(UserCode.USERNAME_OR_PASSWORD_ERROR,null);
+        if (login<1){
+            ExceptionCast.cast(UserCode.USERNAME_OR_PASSWORD_ERROR);
         }
-
+        return this.getUserByUserName(user.getUsername());
     }
 
     /**
@@ -39,16 +37,17 @@ public class UserService {
      * @param user 用户对象
      * @return 添加结果和数据
      */
-    public CommonResult<User> saveUser(User user){
+    public User saveUser(User user){
         int userByUserName = this.selectByUserName(user.getUsername());
         //判断用户是否存在
         if (userByUserName>0){
-            return new CommonResult<>(UserCode.USER_EXIST,user);
-        }else {
-            int i = userMapper.saveUser(user);
-            System.out.println(" 保存结果"+i);
-            return new CommonResult<>(CommonCode.SUCCESS,user);
+            ExceptionCast.cast(UserCode.USER_EXIST);
         }
+        int i = userMapper.saveUser(user);
+        if (i<1){
+            ExceptionCast.cast(SqlCode.SAVE_FAIL);
+        }
+        return user;
     }
 
 
@@ -57,14 +56,12 @@ public class UserService {
      * @param username 用户名
      * @return >0表示用户存在
      */
-    public CommonResult<User> getUserByUserName(String username){
+    public User getUserByUserName(String username){
         User userByUserName = userMapper.getUserByUserName(username);
         if (userByUserName==null){
-            return new CommonResult<>(UserCode.USER_NOT_EXIST,null);
-
-        }else {
-            return new CommonResult<>(CommonCode.SUCCESS,userByUserName);
+            ExceptionCast.cast(UserCode.USER_NOT_EXIST);
         }
+        return userByUserName;
     }
 
     /**
@@ -72,21 +69,22 @@ public class UserService {
      * @param user 用户名
      * @return  修改后的用户
      */
-    public CommonResult<User> updateUser(User user){
+    public User updateUser(User user){
         int i = userMapper.updateUser(user);
-        if (i>0){
-            return new CommonResult<>(CommonCode.SUCCESS,user);
-        }else {
-            return new CommonResult<>(UserCode.USER_NOT_EXIST,null);
+        if (i<1){
+            ExceptionCast.cast(SqlCode.SAVE_FAIL);
         }
+        return user;
     }
 
-    public CommonResult<User> deleteUserByUserName(String username){
+    /**
+     * 根据用户名删除用户
+     * @param username 用户名
+     */
+    public void deleteUserByUserName(String username){
         int i = userMapper.deleteUserByUserName(username);
-        if (i>0){
-            return new CommonResult<>(CommonCode.SUCCESS,null);
-        }else {
-            return new CommonResult<>(UserCode.USER_NOT_EXIST,null);
+        if (i<1){
+            ExceptionCast.cast(SqlCode.DELETE_FAIL);
         }
     }
 
