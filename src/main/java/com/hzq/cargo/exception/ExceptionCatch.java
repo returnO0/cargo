@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import static com.sun.xml.internal.ws.api.message.Packet.Status.Request;
 
 /**
  * @author zhiqiang.hu01@hand-china.com

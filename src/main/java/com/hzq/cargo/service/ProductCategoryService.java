@@ -51,7 +51,6 @@ public class ProductCategoryService {
         if (i<1){
             ExceptionCast.cast(SqlCode.SAVE_FAIL);
         }
-        System.out.println(productCategory.getId()+"=====");
     }
 
     /**

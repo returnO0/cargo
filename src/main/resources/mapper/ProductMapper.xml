@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzq.cargo.dao.ProductMapper">
+    <select id="selectList" resultType="com.hzq.cargo.entities.Product">
+        select * from product
+    </select>
+
+    <select id="selectListByName" parameterType="java.lang.String" resultType="com.hzq.cargo.entities.Product">
+        select * from product where name like concat ('%',#{name},'%')
+    </select>
+    
+    <select id="selectListByDescription" parameterType="java.lang.String" resultType="com.hzq.cargo.entities.Product">
+        select * from product where description like concat ('%',#{description},'%')
+    </select>
+
+    <select id="selectById" parameterType="java.lang.Long" resultType="com.hzq.cargo.entities.Product">
+        select * from product where id=#{id}
+    </select>
+    
+    <insert id="insertProduct" parameterType="com.hzq.cargo.entities.Product">
+        <selectKey resultType="long" order="AFTER" keyProperty="id">
+            select last_insert_id();
+        </selectKey>
+        insert into product (name,description,price,status) value (#{name},#{description},#{price},#{status})
+    </insert>
+
+    <update id="updateProduct" parameterType="com.hzq.cargo.entities.Product">
+        update product set name=#{name},description=#{description},price=#{price},status=#{status} where id=#{id}
+    </update>
+
+    <delete id="deleteProduct" parameterType="java.lang.Long">
+        delete from product where id=#{id}
+    </delete>
+</mapper>

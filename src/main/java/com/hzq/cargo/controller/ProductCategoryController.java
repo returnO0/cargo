@@ -40,9 +40,9 @@ public class ProductCategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseResult deleteProductCategoryById(@PathVariable(value = "id")int id){
+    public ResponseResult<ProductCategory> deleteProductCategoryById(@PathVariable(value = "id")int id){
         productCategoryService.deleteProductCategoryById(id);
-        return new ResponseResult(CommonCode.SUCCESS);
+        return new ResponseResult<>(CommonCode.SUCCESS);
     }
 
 }

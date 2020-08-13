@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseResult<User> saveUser(User user){
+    public ResponseResult<User> saveUser(@RequestBody User user){
         return new ResponseResult<>(CommonCode.SUCCESS,userService.saveUser(user));
     }
 
@@ -34,7 +34,7 @@ public class UserController {
         return new ResponseResult<>(CommonCode.SUCCESS,userService.getUserByUserName(username));
     }
     @PutMapping
-    public ResponseResult<User> updateUser(User user){
+    public ResponseResult<User> updateUser(@RequestBody User user){
         return new ResponseResult<>(CommonCode.SUCCESS,userService.updateUser(user));
     }
     @DeleteMapping("/{username}")
