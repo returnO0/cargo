@@ -1,5 +1,6 @@
 package com.hzq.cargo.dao;
 
+import com.hzq.cargo.dto.CategoryDTO;
 import com.hzq.cargo.entities.ProductCategory;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,4 +18,6 @@ public interface ProductCategoryMapper {
     int updateProductCategory(ProductCategory productCategory);
     int deleteProductCategoryById(int id);
     int productExistByName(String categoryName);
+    CategoryDTO selectCategoryNameAndParentNameById(Long id);
+
 }

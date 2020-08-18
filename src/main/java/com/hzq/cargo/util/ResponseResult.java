@@ -1,6 +1,5 @@
 package com.hzq.cargo.util;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,10 +13,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ResponseResult<T>{
-    boolean success;
-    int code;
-    String message;
+    private boolean success;
+    private int code;
+    private String message;
     private T data;
+    private Long total;
 
     public ResponseResult(ResultCode status) {
         this.success = status.success();
@@ -30,5 +30,13 @@ public class ResponseResult<T>{
         this.code=status.code();
         this.message=status.message();
         this.data = data;
+    }
+
+    public ResponseResult(ResultCode status, T data, Long total) {
+        this.success = status.success();
+        this.code=status.code();
+        this.message=status.message();
+        this.data = data;
+        this.total=total;
     }
 }

@@ -31,4 +31,8 @@
     <select id="productExistByName" parameterType="string" resultType="int">
         select count(1) from category where categoryName=#{categoryName}
     </select>
+
+    <select id="selectCategoryNameAndParentNameById" parameterType="long" resultType="com.hzq.cargo.dto.CategoryDTO">
+        select c2.categoryName parentName,c1.categoryName categoryName  from category c1,category c2 where c1.parentId=c2.id and c1.id=#{id}
+    </select>
 </mapper>

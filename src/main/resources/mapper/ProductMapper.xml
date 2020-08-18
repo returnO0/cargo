@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hzq.cargo.dao.ProductMapper">
-    <select id="selectList" resultType="com.hzq.cargo.entities.Product">
-        select * from product
+    <resultMap id="BaseResultMap" type="com.hzq.cargo.util.Page">
+        <result column="total" jdbcType="INTEGER" property="total"/>
+        <collection property="records" ofType="com.hzq.cargo.entities.Product">
+            <id column="id" property="id" jdbcType="INTEGER"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="description" jdbcType="VARCHAR" property="description"/>
+            <result column="price" jdbcType="DOUBLE"  property="price"/>
+            <result column="type_id" jdbcType="INTEGER"  property="typeId"/>
+            <result column="status" jdbcType="TINYINT" javaType="boolean" property="status"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select id, name, description, price,type_id, status, total
+        from product,
+             (select count(id) total from product) as pt
+        limit #{start},#{size}
     </select>
 
-    <select id="selectListByName" parameterType="java.lang.String" resultType="com.hzq.cargo.entities.Product">
-        select * from product where name like concat ('%',#{name},'%')
+    <select id="selectListByName" resultMap="BaseResultMap">
+        select id, name, description, price,type_id, status, total
+        from product,
+             (select count(id) total from product) as pt
+        where name like concat ('%',#{name},'%') limit #{start},#{size}
     </select>
     
-    <select id="selectListByDescription" parameterType="java.lang.String" resultType="com.hzq.cargo.entities.Product">
-        select * from product where description like concat ('%',#{description},'%')
+    <select id="selectListByDescription" resultMap="BaseResultMap">
+        select id, name, description, price,type_id, status, total
+        from product,
+             (select count(id) total from product) as pt
+        where description like concat ('%',#{description},'%') limit #{start},#{size}
     </select>
 
-    <select id="selectById" parameterType="java.lang.Long" resultType="com.hzq.cargo.entities.Product">
+    <select id="selectById" resultType="com.hzq.cargo.entities.Product">
         select * from product where id=#{id}
     </select>
     
@@ -26,6 +47,10 @@
 
     <update id="updateProduct" parameterType="com.hzq.cargo.entities.Product">
         update product set name=#{name},description=#{description},price=#{price},status=#{status} where id=#{id}
+    </update>
+
+    <update id="updateStatus" parameterType="long">
+        update product set status=1-status where id=#{id};
     </update>
 
     <delete id="deleteProduct" parameterType="java.lang.Long">

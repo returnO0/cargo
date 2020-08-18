@@ -1,6 +1,7 @@
 package com.hzq.cargo.service;
 
 import com.hzq.cargo.dao.ProductCategoryMapper;
+import com.hzq.cargo.dto.CategoryDTO;
 import com.hzq.cargo.entities.ProductCategory;
 import com.hzq.cargo.exception.ExceptionCast;
 import com.hzq.cargo.util.ProductCategoryCode;
@@ -83,5 +84,14 @@ public class ProductCategoryService {
     private Boolean productExistByName(String categoryName){
         int i = productCategoryMapper.productExistByName(categoryName);
         return i>0;
+    }
+
+    /**
+     * @param id 主键
+     * @return  类别名和父类别名
+     */
+
+    public CategoryDTO selectCategoryNameAndParentNameById(Long id){
+        return productCategoryMapper.selectCategoryNameAndParentNameById(id);
     }
 }

@@ -1,9 +1,9 @@
 package com.hzq.cargo.dao;
 
 import com.hzq.cargo.entities.Product;
+import com.hzq.cargo.util.Page;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author zhiqiang.hu01@hand-china.com
@@ -12,11 +12,12 @@ import java.util.List;
  */
 @Mapper
 public interface ProductMapper {
-    List<Product> selectList();
-    List<Product> selectListByName(String name);
-    List<Product> selectListByDescription(String description);
+    Page<Product> selectList(int start, int size);
+    Page<Product> selectListByName(@Param("start")int start, @Param("size") int size, @Param("name") String name);
+    Page<Product> selectListByDescription(@Param("start") int start,@Param("size") int size,@Param("description") String description);
     Product selectById(Long id);
     int insertProduct(Product product);
     int updateProduct(Product product);
     int deleteProduct(Long id);
+    int updateStatus(Long id);
 }
