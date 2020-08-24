@@ -11,4 +11,5 @@ import lombok.Data;
 public class CategoryDTO {
     private String categoryName;        // 类别名称
     private String parentName;  // 父类别名称
+    private Long parentTypeId;  // 父类别id
 }

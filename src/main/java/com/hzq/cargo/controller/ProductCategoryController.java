@@ -1,6 +1,5 @@
 package com.hzq.cargo.controller;
 
-import com.hzq.cargo.dao.ProductCategoryMapper;
 import com.hzq.cargo.entities.ProductCategory;
 import com.hzq.cargo.service.ProductCategoryService;
 import com.hzq.cargo.util.CommonCode;
@@ -22,8 +21,8 @@ public class ProductCategoryController {
     ProductCategoryService productCategoryService;
 
     @GetMapping("/{parentId}")
-    public ResponseResult<List<ProductCategoryMapper>> getProductCategoryList(@PathVariable(value = "parentId",required = false) Integer parentId){
-        List<ProductCategoryMapper> productCategoryList = productCategoryService.getProductCategoryList(parentId);
+    public ResponseResult<List<ProductCategory>> getProductCategoryList(@PathVariable(value = "parentId",required = false) Integer parentId){
+        List<ProductCategory> productCategoryList = productCategoryService.getProductCategoryList(parentId);
         return new ResponseResult<>(CommonCode.SUCCESS,productCategoryList);
     }
 

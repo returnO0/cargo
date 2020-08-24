@@ -1,6 +1,6 @@
 package com.hzq.cargo.service;
 
-import com.hzq.cargo.dao.ProductMapper;
+import com.hzq.cargo.mapper.ProductMapper;
 import com.hzq.cargo.dto.CategoryDTO;
 import com.hzq.cargo.dto.ProductDTO;
 import com.hzq.cargo.entities.Product;

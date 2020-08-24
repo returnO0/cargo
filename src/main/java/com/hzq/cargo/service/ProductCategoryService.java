@@ -1,6 +1,6 @@
 package com.hzq.cargo.service;
 
-import com.hzq.cargo.dao.ProductCategoryMapper;
+import com.hzq.cargo.mapper.ProductCategoryMapper;
 import com.hzq.cargo.dto.CategoryDTO;
 import com.hzq.cargo.entities.ProductCategory;
 import com.hzq.cargo.exception.ExceptionCast;
@@ -26,7 +26,7 @@ public class ProductCategoryService {
      * @param parentId 父类别id
      * @return 商品类型列表
      */
-    public List<ProductCategoryMapper> getProductCategoryList(Integer parentId){
+    public List<ProductCategory> getProductCategoryList(Integer parentId){
         if (parentId==null){
             ExceptionCast.cast(SqlCode.PARAMS_IS_NULL);
         }

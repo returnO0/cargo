@@ -17,4 +17,5 @@ public class ProductDTO {
     private boolean status; //上架状态
     private String categoryName;        // 类别名称
     private String parentName;  // 父类别名称
+    private Long parentTypeId; // 父类别id
 }

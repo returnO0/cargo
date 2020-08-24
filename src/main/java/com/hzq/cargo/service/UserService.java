@@ -1,6 +1,6 @@
 package com.hzq.cargo.service;
 
-import com.hzq.cargo.dao.UserMapper;
+import com.hzq.cargo.mapper.UserMapper;
 import com.hzq.cargo.entities.User;
 import com.hzq.cargo.exception.ExceptionCast;
 import com.hzq.cargo.util.SqlCode;

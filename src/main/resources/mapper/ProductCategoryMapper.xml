@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hzq.cargo.dao.ProductCategoryMapper">
+<mapper namespace="com.hzq.cargo.mapper.ProductCategoryMapper">
     <select id="getProductCategoryListByParentId" resultType="com.hzq.cargo.entities.ProductCategory" parameterType="java.lang.Integer">
         select * from category <if test="_parameter!=null">where parentId=#{parentId}</if>
     </select>
@@ -33,6 +33,6 @@
     </select>
 
     <select id="selectCategoryNameAndParentNameById" parameterType="long" resultType="com.hzq.cargo.dto.CategoryDTO">
-        select c2.categoryName parentName,c1.categoryName categoryName  from category c1,category c2 where c1.parentId=c2.id and c1.id=#{id}
+        select c1.parentId parentTypeId,c2.categoryName parentName,c1.categoryName categoryName  from category c1,category c2 where c1.parentId=c2.id and c1.id=#{id}
     </select>
 </mapper>

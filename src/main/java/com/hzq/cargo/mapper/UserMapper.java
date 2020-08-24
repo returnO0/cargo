@@ -1,6 +1,5 @@
-package com.hzq.cargo.dao;
+package com.hzq.cargo.mapper;
 
-import com.hzq.cargo.dto.CategoryDTO;
 import com.hzq.cargo.entities.User;
 import org.apache.ibatis.annotations.Mapper;
 

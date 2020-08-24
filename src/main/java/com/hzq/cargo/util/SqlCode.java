@@ -8,7 +8,8 @@ package com.hzq.cargo.util;
 public enum  SqlCode implements ResultCode {
     PARAMS_IS_NULL(false,7001,"请求参数为空"),
     SAVE_FAIL(false,7002,"保存数据失败"),
-    DELETE_FAIL(false,7003,"数据删除失败");
+    DELETE_FAIL(false,7003,"数据删除失败"),
+    VERSION_NULL(false,7004,"版本号为空");
     boolean success;
     //操作代码
     int code;
@@ -21,16 +22,15 @@ public enum  SqlCode implements ResultCode {
     }
     @Override
     public boolean success() {
-        return false;
+        return success;
     }
-
     @Override
     public int code() {
-        return 0;
+        return code;
     }
 
     @Override
     public String message() {
-        return null;
+        return message;
     }
 }
