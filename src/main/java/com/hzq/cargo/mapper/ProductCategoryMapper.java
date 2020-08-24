@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Mapper
 public interface ProductCategoryMapper {
-    List<ProductCategoryMapper> getProductCategoryListByParentId(Integer parentId);
+    List<ProductCategory> getProductCategoryListByParentId(Integer parentId);
     int insertProductCategory(ProductCategory productCategory);
     int updateProductCategory(ProductCategory productCategory);
     int deleteProductCategoryById(int id);
