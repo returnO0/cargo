@@ -19,11 +19,13 @@ import java.util.Date;
  */
 @Slf4j
 @Component
+// 1.实现MetaObjectHandler的insertFill和updateFill
 public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-
+        //this.setFieldValByName(String filedName,Object fieldVal,MetaObject metaObject)
+        //
         this.setFieldValByName("createDate", LocalDateTime.now(),metaObject);
         this.setFieldValByName("version",1,metaObject);
         this.setFieldValByName("lastUpdateDate", LocalDateTime.now(),metaObject);

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.Version;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.ToString;
 
@@ -22,9 +23,11 @@ public class Domain {
     protected Long id;
 
     @TableField(value = "create_date",fill = FieldFill.INSERT)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected LocalDateTime createDate;
 
     @TableField(value = "last_update_date",fill = FieldFill.INSERT_UPDATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected LocalDateTime lastUpdateDate;
 
     @TableField(fill = FieldFill.INSERT)

@@ -1,5 +1,7 @@
 package com.hzq.cargo.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hzq.cargo.entities.Cargo;
 import com.hzq.cargo.exception.ExceptionCast;
 import com.hzq.cargo.mapper.CargoMapper;
@@ -9,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author zhiqiang.hu01@hand-china.com
@@ -32,5 +35,17 @@ public class CargoService {
             ExceptionCast.cast(SqlCode.SAVE_FAIL);
         }
         return cargo;
+    }
+
+    public List<Cargo> selectPage(Page<Cargo> page) {
+        Page<Cargo> cargoPage = cargoMapper.selectPage(page,new QueryWrapper<>());
+        return cargoPage.getRecords();
+    }
+
+    public void deleteCargoById(Long id) {
+        int i = cargoMapper.deleteById(id);
+        if (i<1){
+            ExceptionCast.cast(SqlCode.DELETE_FAIL);
+        }
     }
 }

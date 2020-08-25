@@ -5,7 +5,7 @@ import com.hzq.cargo.dto.CategoryDTO;
 import com.hzq.cargo.dto.ProductDTO;
 import com.hzq.cargo.entities.Product;
 import com.hzq.cargo.exception.ExceptionCast;
-import com.hzq.cargo.util.Page;
+import com.hzq.cargo.util.PageUtil;
 import com.hzq.cargo.util.SqlCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +34,13 @@ public class ProductService {
      * @param page 页数
      * @param size 每页个数
      */
-    public Page<ProductDTO> selectList(int page, int size){
+    public PageUtil<ProductDTO> selectList(int page, int size){
         int start = page*size;
-        Page<Product> productPage = productMapper.selectList(start, size);
-        if (productPage==null){
-            return new Page<>();
+        PageUtil<Product> productPageUtil = productMapper.selectList(start, size);
+        if (productPageUtil ==null){
+            return new PageUtil<>();
         }
-        return this.toProductDTO(productPage);
+        return this.toProductDTO(productPageUtil);
     }
 
 
@@ -49,16 +49,16 @@ public class ProductService {
      * @param name 商品名称
      * @return 商品列表
      */
-    public Page<ProductDTO> selectListByName(int page, int size,String name){
+    public PageUtil<ProductDTO> selectListByName(int page, int size, String name){
         int start = page*size;
         if (StringUtils.isEmpty(name)){
             ExceptionCast.cast(SqlCode.PARAMS_IS_NULL);
         }
-        Page<Product> productPage = productMapper.selectListByName(start, size, name);
-        if (productPage==null){
-            return new Page<>();
+        PageUtil<Product> productPageUtil = productMapper.selectListByName(start, size, name);
+        if (productPageUtil ==null){
+            return new PageUtil<>();
         }
-        return this.toProductDTO(productPage);
+        return this.toProductDTO(productPageUtil);
     }
 
     /**
@@ -66,16 +66,16 @@ public class ProductService {
      * @param description 商品描述
      * @return 商品列表
      */
-    public Page<ProductDTO> selectListByDescription(int page, int size,String description){
+    public PageUtil<ProductDTO> selectListByDescription(int page, int size, String description){
         int start = page*size;
         if (StringUtils.isEmpty(description)){
             ExceptionCast.cast(SqlCode.PARAMS_IS_NULL);
         }
-        Page<Product> productPage = productMapper.selectListByDescription(start, size, description);
-        if (productPage==null){
-            return new Page<>();
+        PageUtil<Product> productPageUtil = productMapper.selectListByDescription(start, size, description);
+        if (productPageUtil ==null){
+            return new PageUtil<>();
         }
-        return this.toProductDTO(productPage);
+        return this.toProductDTO(productPageUtil);
     }
 
     /**
@@ -130,12 +130,12 @@ public class ProductService {
 
     /**
      * 商品类中添加字段
-     * @param productPage 商品类page对象
+     * @param productPageUtil 商品类page对象
      * @return DTO的page对象
      */
-    private Page<ProductDTO> toProductDTO(Page<Product> productPage){
-        Page<ProductDTO> page=new Page<>();
-        List<Product> records = productPage.getRecords();
+    private PageUtil<ProductDTO> toProductDTO(PageUtil<Product> productPageUtil){
+        PageUtil<ProductDTO> pageUtil =new PageUtil<>();
+        List<Product> records = productPageUtil.getRecords();
         List<ProductDTO> newRecords=new ArrayList<>();
         records.forEach(item->{
             ProductDTO productDTO=new ProductDTO();
@@ -146,9 +146,9 @@ public class ProductService {
             BeanUtils.copyProperties(categoryDTO,productDTO);
             newRecords.add(productDTO);
         });
-        page.setRecords(newRecords);
-        page.setTotal(productPage.getTotal());
-        return page;
+        pageUtil.setRecords(newRecords);
+        pageUtil.setTotal(productPageUtil.getTotal());
+        return pageUtil;
     }
 
 
