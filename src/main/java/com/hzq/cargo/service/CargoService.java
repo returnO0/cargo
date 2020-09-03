@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hzq.cargo.entities.Cargo;
 import com.hzq.cargo.exception.ExceptionCast;
 import com.hzq.cargo.mapper.CargoMapper;
-import com.hzq.cargo.util.CommonCode;
 import com.hzq.cargo.util.SqlCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,8 +21,13 @@ import java.util.List;
 @Service
 public class CargoService {
     @Resource
-    CargoMapper cargoMapper;
+    private CargoMapper cargoMapper;
 
+    /**
+     * 新增或更新货物信息
+     * @param cargo 货物信息类
+     * @return 更新后的货物信息类
+     */
     public Cargo saveCargo(Cargo cargo) {
         int i=0;
         if (cargo.getId()!=null){
@@ -37,11 +41,20 @@ public class CargoService {
         return cargo;
     }
 
+    /**
+     * 分页查询货物信息
+     * @param page 分页参数
+     * @return 货物信息列表
+     */
     public List<Cargo> selectPage(Page<Cargo> page) {
         Page<Cargo> cargoPage = cargoMapper.selectPage(page,new QueryWrapper<>());
         return cargoPage.getRecords();
     }
 
+    /**
+     * 根据id删除货物信息
+     * @param id 主键
+     */
     public void deleteCargoById(Long id) {
         int i = cargoMapper.deleteById(id);
         if (i<1){

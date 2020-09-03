@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzq.cargo.mapper.TransactionMapper">
+    <resultMap id="TransactionDTO" type="com.hzq.cargo.dto.TransactionDTO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="cargo_id" jdbcType="BIGINT" property="cargoId"/>
+        <result column="cargo_name" jdbcType="VARCHAR" property="cargoName"/>
+        <result column="user_id" jdbcType="BIGINT"  property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR"  property="userName"/>
+        <result column="unit_price" jdbcType="DOUBLE"  property="unitPrice"/>
+        <result column="trading_volume" jdbcType="INTEGER"  property="tradingVolume"/>
+        <result column="amount" jdbcType="DOUBLE"  property="amount"/>
+        <result column="status" jdbcType="TINYINT" javaType="boolean"  property="status"/>
+        <result column="note" jdbcType="VARCHAR"  property="note"/>
+        <result column="create_date" jdbcType="TIMESTAMP"  property="createDate"/>
+        <result column="last_update_date" jdbcType="TIMESTAMP"  property="lastUpdateDate"/>
+        <result column="version" jdbcType="INTEGER"  property="version"/>
+    </resultMap>
+    <select id="selectListTransactionDTO" resultMap="TransactionDTO">
+        select t.id, cargo_id,c2.name cargo_name, user_id,c.name user_name, unit_price, trading_volume, amount, status, t.note, t.create_date, t.last_update_date, t.version
+        from transaction t left join customer c on t.user_id = c.id
+                           left join cargo c2 on t.cargo_id = c2.id
+    </select>
+</mapper>
