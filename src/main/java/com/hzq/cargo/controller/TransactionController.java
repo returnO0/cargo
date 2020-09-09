@@ -35,9 +35,9 @@ public class TransactionController {
         return new ResponseResult<>(CommonCode.SUCCESS);
     }
     @GetMapping("/selectPage")
-    public ResponseResult<List<TransactionDTO>> selectTransactionPage(Pageable pageable){
+    public ResponseResult<List<TransactionDTO>> selectTransactionPage(TransactionDTO transactionDTO,Pageable pageable){
         Page<TransactionDTO> page = PageUtil.getPage(pageable);
-        List<TransactionDTO> transactionList = transactionService.selectPage(page);
+        List<TransactionDTO> transactionList = transactionService.selectPage(transactionDTO,page);
         Long total = PageUtil.getTotal(page);
         return new ResponseResult<>(CommonCode.SUCCESS,transactionList,total);
     }

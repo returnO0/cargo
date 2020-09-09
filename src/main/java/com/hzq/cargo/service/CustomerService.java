@@ -1,5 +1,6 @@
 package com.hzq.cargo.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hzq.cargo.entities.Customer;
@@ -44,8 +45,21 @@ public class CustomerService {
      * @param page 分页参数
      * @return 顾客信息列表
      */
-    public List<Customer> selectPage(Page<Customer> page) {
-        Page<Customer> cargoPage = customerMapper.selectPage(page,new QueryWrapper<>());
+    public List<Customer> selectPage(Customer customer,Page<Customer> page) {
+        //获取查询条件
+        String name = customer.getName();
+        String address = customer.getAddress();
+        String cardNumber = customer.getCardNumber();
+        String telephone = customer.getTelephone();
+        Boolean sex = customer.getSex();
+        Wrapper<Customer> wrapper=
+                new QueryWrapper<Customer>()
+                .like(name!=null,"name",name)
+                .like(address!=null,"address",address)
+                .like(cardNumber!=null,"card_number",cardNumber)
+                .eq(sex!=null,"sex",sex)
+                .like(telephone!=null,"telephone",telephone);
+        Page<Customer> cargoPage = customerMapper.selectPage(page,wrapper);
         return cargoPage.getRecords();
     }
 

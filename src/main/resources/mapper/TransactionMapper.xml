@@ -20,5 +20,47 @@
         select t.id, cargo_id,c2.name cargo_name, user_id,c.name user_name, unit_price, trading_volume, amount, status, t.note, t.create_date, t.last_update_date, t.version
         from transaction t left join customer c on t.user_id = c.id
                            left join cargo c2 on t.cargo_id = c2.id
+        <where>
+            <if test="transactionDTO.id!=null">
+                AND t.id = #{transactionDTO.id}
+            </if>
+            <if test="transactionDTO.cargoId!=null">
+                AND c2.id = #{transactionDTO.cargoId}
+            </if>
+            <if test="transactionDTO.userId!=null">
+                AND c.id = #{transactionDTO.userId}
+            </if>
+            <if test="transactionDTO.status!=null">
+                AND t.status = #{transactionDTO.status}
+            </if>
+            <if test="transactionDTO.unitPriceFrom!=null">
+                AND t.unit_price &gt;= #{transactionDTO.unitPriceFrom}
+            </if>
+            <if test="transactionDTO.unitPriceTo!=null">
+                AND t.unit_price &lt;= #{transactionDTO.unitPriceTo}
+            </if>
+            <if test="transactionDTO.tradingVolumeFrom!=null">
+                AND t.trading_volume &gt;= #{transactionDTO.tradingVolumeFrom}
+            </if>
+            <if test="transactionDTO.tradingVolumeTo!=null">
+                AND t.trading_volume &lt;= #{transactionDTO.tradingVolumeTo}
+            </if>
+            <if test="transactionDTO.amountFrom!=null">
+                AND t.amount &gt;= #{transactionDTO.amountFrom}
+            </if>
+            <if test="transactionDTO.amountTo!=null">
+                AND t.amount &lt;= #{transactionDTO.amountTo}
+            </if>
+            <if test="transactionDTO.createDateFrom!=null">
+                AND t.create_date &gt;= #{transactionDTO.createDateFrom}
+            </if>
+            <if test="transactionDTO.createDateTo!=null">
+                AND t.create_date &lt;= #{transactionDTO.createDateTo}
+            </if>
+            <if test="transactionDTO.note!=null">
+                AND t.note &lt;= #{transactionDTO.note}
+            </if>
+
+        </where>
     </select>
 </mapper>

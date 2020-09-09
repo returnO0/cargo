@@ -1,6 +1,7 @@
 package com.hzq.cargo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hzq.cargo.dto.CargoDTO;
 import com.hzq.cargo.entities.Cargo;
 import com.hzq.cargo.service.CargoService;
 import com.hzq.cargo.util.CommonCode;
@@ -34,9 +35,9 @@ public class CargoController {
         return new ResponseResult<>(CommonCode.SUCCESS);
     }
     @GetMapping("/selectPage")
-    public ResponseResult<List<Cargo>> selectCargoPage(Pageable pageable){
+    public ResponseResult<List<Cargo>> selectCargoPage(CargoDTO cargoDTO, Pageable pageable){
         Page<Cargo> page = PageUtil.getPage(pageable);
-        List<Cargo> cargoList = cargoService.selectPage(page);
+        List<Cargo> cargoList = cargoService.selectPage(cargoDTO,page);
         Long total = PageUtil.getTotal(page);
         return new ResponseResult<>(CommonCode.SUCCESS,cargoList,total);
     }

@@ -47,8 +47,8 @@ public class TransactionService {
      * @param page 分页参数
      * @return 交易记录列表
      */
-    public List<TransactionDTO> selectPage(Page<TransactionDTO> page) {
-        IPage<TransactionDTO> cargoPage = transactionMapper.selectListTransactionDTO(page);
+    public List<TransactionDTO> selectPage(TransactionDTO transactionDTO,Page<TransactionDTO> page) {
+        IPage<TransactionDTO> cargoPage = transactionMapper.selectListTransactionDTO(transactionDTO,page);
         return cargoPage.getRecords();
     }
 

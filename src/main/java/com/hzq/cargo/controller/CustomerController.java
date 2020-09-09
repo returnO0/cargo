@@ -34,9 +34,9 @@ public class CustomerController {
         return new ResponseResult<>(CommonCode.SUCCESS);
     }
     @GetMapping("/selectPage")
-    public ResponseResult<List<Customer>> selectCustomerPage(Pageable pageable){
+    public ResponseResult<List<Customer>> selectCustomerPage(Customer customer,Pageable pageable){
         Page<Customer> page = PageUtil.getPage(pageable);
-        List<Customer> cargoList = customerService.selectPage(page);
+        List<Customer> cargoList = customerService.selectPage(customer,page);
         Long total = PageUtil.getTotal(page);
         return new ResponseResult<>(CommonCode.SUCCESS,cargoList,total);
     }

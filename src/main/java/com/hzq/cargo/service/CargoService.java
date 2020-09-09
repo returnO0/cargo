@@ -1,7 +1,9 @@
 package com.hzq.cargo.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hzq.cargo.dto.CargoDTO;
 import com.hzq.cargo.entities.Cargo;
 import com.hzq.cargo.exception.ExceptionCast;
 import com.hzq.cargo.mapper.CargoMapper;
@@ -10,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -46,8 +49,26 @@ public class CargoService {
      * @param page 分页参数
      * @return 货物信息列表
      */
-    public List<Cargo> selectPage(Page<Cargo> page) {
-        Page<Cargo> cargoPage = cargoMapper.selectPage(page,new QueryWrapper<>());
+    public List<Cargo> selectPage(CargoDTO cargoDTO, Page<Cargo> page) {
+        //货物名称
+        String name = cargoDTO.getName();
+        //货物库存区间
+        Long inventoryFrom = cargoDTO.getInventoryFrom();
+        Long inventoryTo = cargoDTO.getInventoryTo();
+        //价格区间
+        BigDecimal priceFrom = cargoDTO.getPriceFrom();
+        BigDecimal priceTo = cargoDTO.getPriceTo();
+        //备注
+        String note = cargoDTO.getNote();
+        //查询条件对象
+        Wrapper<Cargo> queryWrapper = new QueryWrapper<Cargo>()
+                .like(name !=null,"name",name)
+                .ge(inventoryFrom!=null,"inventory",inventoryFrom)
+                .le(inventoryTo!=null,"inventory",inventoryTo)
+                .ge(priceFrom!=null,"price",priceFrom)
+                .le(priceTo!=null,"price",priceTo)
+                .like(note!=null,"note",note);
+        Page<Cargo> cargoPage = cargoMapper.selectPage(page,queryWrapper);
         return cargoPage.getRecords();
     }
 

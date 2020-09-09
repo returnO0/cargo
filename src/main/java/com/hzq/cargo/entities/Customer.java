@@ -19,7 +19,7 @@ public class Customer extends Domain{
     private String name;
     //顾客性别
     @TableField("sex")
-    private boolean sex;
+    private Boolean sex;
     //地址
     @TableField("address")
     private String address;

@@ -14,5 +14,5 @@ import java.util.List;
  * @date 2020-09-02 14:54
  */
 public interface TransactionMapper extends BaseMapper<Transaction> {
-    IPage<TransactionDTO> selectListTransactionDTO(Page<TransactionDTO> page);
+    IPage<TransactionDTO> selectListTransactionDTO(TransactionDTO transactionDTO,Page<TransactionDTO> page);
 }

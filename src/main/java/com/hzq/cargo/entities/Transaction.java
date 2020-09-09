@@ -30,11 +30,11 @@ public class Transaction extends Domain{
     private BigDecimal unitPrice;
     //交易数量
     @TableField("trading_volume")
-    private int tradingVolume;
+    private Integer tradingVolume;
     //交易总金额
     @TableField("amount")
     private BigDecimal amount;
-    //进货/出货
+    //进货/出货 true/false
     @TableField("status")
-    private boolean status;
+    private Boolean status;
 }

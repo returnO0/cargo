@@ -35,14 +35,30 @@ public class TransactionDTO {
     private String userName;
     //交易单价
     private BigDecimal unitPrice;
+    //交易单价从
+    private BigDecimal unitPriceFrom;
+    //交易单价到
+    private BigDecimal unitPriceTo;
+    //交易数量从
+    private Integer tradingVolumeFrom;
+    //交易数量到
+    private Integer tradingVolumeTo;
     //交易数量
-    private int tradingVolume;
+    private Integer tradingVolume;
+    //交易总金额从
+    private BigDecimal amountFrom;
+    //交易总金额从
+    private BigDecimal amountTo;
     //交易总金额
     private BigDecimal amount;
-    //进货/出货
-    private boolean status;
+    //进货/出货 true/false
+    private Boolean status;
     //备注信息
     private String note;
+    //交易时间从
+    private String createDateFrom;
+    //交易时间到
+    private String createDateTo;
     //创建时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
