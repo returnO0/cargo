@@ -19,7 +19,7 @@ import java.util.List;
  * @date 2020-08-24 9:40
  */
 @RestController
-@RequestMapping("/cargo")
+@RequestMapping("/api/cargo")
 public class CargoController {
     @Autowired
     CargoService cargoService;

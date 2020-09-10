@@ -19,7 +19,7 @@ import java.util.List;
  * @date 2020-09-02 14:57
  */
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/api/transaction")
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;

@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2020-08-12 10:04
  */
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/product")
 public class ProductController {
     @Resource
     private ProductService productService;

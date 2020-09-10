@@ -18,7 +18,7 @@ import java.util.List;
  * @date 2020-09-02 14:56
  */
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/api/customer")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
